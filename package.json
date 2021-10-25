@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "dist/*"
+    "dist"
   ],
   "scripts": {
     "pretest": "npm run build",
