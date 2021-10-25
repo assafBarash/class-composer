@@ -39,6 +39,8 @@ describe('compose', () => {
     const ComposedClass = compose(User, Shareable, Activateable);
     const instance = new ComposedClass('some_name');
 
+    new ComposedClass();
+
     instance.activate();
     instance.share();
 

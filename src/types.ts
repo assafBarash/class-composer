@@ -7,6 +7,17 @@ export type UnionToIntersection<U> = (
   ? I
   : never;
 
+export type Mixins = Array<Constructor<any>>;
+
 /* merges constructor types - self explanatory */
-export type MergeConstructorTypes<T extends Array<Constructor<any>>> =
-  UnionToIntersection<InstanceType<T[number]>>;
+export type MergeConstructorTypes<T extends Mixins> = UnionToIntersection<
+  InstanceType<T[number]>
+>;
+
+export type ComposedClass<T extends Mixins> = Constructor<
+  MergeConstructorTypes<T>
+>;
+
+export type ComposedConstructorParams<T extends Mixins> = ConstructorParameters<
+  ComposedClass<T>
+>;

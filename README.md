@@ -6,6 +6,8 @@ it allows you to easily compose typed class from other JS\TS classes with Intell
 
 ## How to use it?
 
+imagine we have the following classes
+
 ```ts
 import { compose } from 'class-composer';
 
@@ -42,10 +44,18 @@ class Shareable {
     return `${this.name} share is ${this.shared ? '' : 'not'} shared`;
   }
 }
+```
 
+we can compose them together like this
+
+```ts
 const ComposedClass = compose(User, Shareable, Activateable);
-const instance = new ComposedClass('some_name');
+// or another option is
+class ComposedClass compose(User, Shareable, Actiavteable) {...}
+```
 
+```ts
+const instance = new ComposedClass('some_name');
 instance.activate();
 
 console.log(instance.name); // some_name
