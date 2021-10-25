@@ -6,7 +6,9 @@
   "scripts": {
     "pretest": "npm run build",
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "preversion": "git commit -am \"bumps version\"",
+    "postversion": "npm publish"
   },
   "keywords": [],
   "author": "",
