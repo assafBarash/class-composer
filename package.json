@@ -6,11 +6,13 @@
   "scripts": {
     "pretest": "npm run build",
     "test": "jest",
+    "test:watch": "jest --watch",
     "build": "tsc",
     "git-deploy": "git commit --allow-empty -am \"version bumped\";",
     "preversion": "npm run test && npm run git-deploy",
     "postversion": "npm publish",
-    "postpublish": " git push && git push --tags"
+    "postpublish": "git push && git push --tags",
+    "deploy": "npm version patch"
   },
   "keywords": [],
   "author": "",
