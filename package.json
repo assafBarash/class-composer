@@ -1,14 +1,16 @@
 {
   "name": "class-composer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "pretest": "npm run build",
     "test": "jest",
     "build": "tsc",
-    "preversion": "git commit -am \"bumps version\"",
-    "postversion": "npm publish"
+    "git-deploy": "git commit --allow-empty -am \"version bumped\";",
+    "preversion": "npm run test && npm run git-deploy",
+    "postversion": "npm publish",
+    "postpublish": " git push && git push --tags"
   },
   "keywords": [],
   "author": "",
