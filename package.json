@@ -3,6 +3,10 @@
   "version": "1.0.5",
   "description": "",
   "main": "index.js",
+  "files": [
+    "./index.js",
+    "./dist/*"
+  ],
   "scripts": {
     "pretest": "npm run build",
     "test": "jest",
