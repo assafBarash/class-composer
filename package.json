@@ -2,7 +2,8 @@
   "name": "class-composer",
   "version": "1.0.8",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "index.js",
     "dist"
