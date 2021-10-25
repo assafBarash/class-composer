@@ -35,9 +35,20 @@ class Shareable {
 }
 
 describe('compose', () => {
-  const ComposedClass = compose(User, Shareable, Activateable);
+  it('should compose with function style', () => {
+    const ComposedClass = compose(User, Shareable, Activateable);
+    const instance = new ComposedClass('some_name');
 
-  it('should compose', () => {
+    instance.activate();
+    instance.share();
+
+    expect(instance.getShareInfo()).toBe(true);
+    expect(instance.activated).toBe(true);
+    expect(instance.name).toBe('some_name');
+  });
+
+  it('should compose with extend style', () => {
+    class ComposedClass extends compose(User, Shareable, Activateable) {}
     const instance = new ComposedClass('some_name');
 
     instance.activate();
