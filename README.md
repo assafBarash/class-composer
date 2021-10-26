@@ -54,6 +54,8 @@ const ComposedClass = compose(User, Shareable, Activateable);
 class ComposedClass compose(User, Shareable, Actiavteable) {...}
 ```
 
+and usage would look like
+
 ```ts
 const instance = new ComposedClass('some_name');
 instance.activate();
