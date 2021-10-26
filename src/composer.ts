@@ -28,18 +28,16 @@ export function buildComposer(
     ...constructors: T
   ): ComposedClass<T> & Constructor<ComposedClassBase> {
     class cls extends ComposedClassBase {
-      state = {};
-
       constructor(...args: ComposedConstructorParams<T>) {
         super();
-        [...constructors].forEach((c) => {
-          handleConstructor.call(this, c, args);
-        });
+        constructors.forEach((c) => handleConstructor.call(this, c, args));
       }
     }
-    constructors.forEach((c: Constructor) => {
-      Object.assign(cls.prototype, c.prototype);
-    });
+
+    constructors.forEach((c: Constructor) =>
+      Object.assign(cls.prototype, c.prototype)
+    );
+
     return cls as any;
   };
 }
@@ -49,10 +47,6 @@ export const compose = buildComposer(function (
   c: Constructor<any>,
   args: any[]
 ) {
-  const oldState = this.state;
-
   c.apply(this, args);
-
-  this.state = Object.assign({}, this.state, oldState);
   this._.mixins[c.name] = c.prototype;
 });
