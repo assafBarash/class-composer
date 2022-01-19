@@ -51,7 +51,7 @@ we can compose them together like this
 ```ts
 const ComposedClass = compose(User, Shareable, Activateable);
 // or another option is
-class ComposedClass compose(User, Shareable, Actiavteable) {...}
+class ComposedClass extends compose(User, Shareable, Actiavteable) {...}
 ```
 
 and usage would look like
