@@ -2,18 +2,18 @@ import { compose } from './composer';
 
 class User {
   name: string;
-  staffSaid: string[] = [];
+  talkLog: string[] = [];
 
   constructor(name: string) {
     this.name = name;
   }
 
   talk() {
-    this.staffSaid.push('i user');
+    this.talkLog.push('i user');
   }
 }
 class Activateable {
-  staffSaid!: string[];
+  talkLog!: string[];
 
   activated: boolean = false;
 
@@ -26,16 +26,16 @@ class Activateable {
   }
 
   talk() {
-    this.staffSaid.push('i activate');
+    this.talkLog.push('i activate');
   }
 }
 class Shareable {
-  staffSaid!: string[];
+  talkLog!: string[];
   name!: string;
   private shared: boolean = false;
 
   talk() {
-    this.staffSaid.push('i share');
+    this.talkLog.push('i share');
   }
 
   share() {
@@ -74,8 +74,8 @@ describe('compose', () => {
     const instance = new ComposedClass('some_name');
 
     instance.talk();
-    expect(instance.staffSaid).toContain('i user');
-    expect(instance.staffSaid).toContain('i share');
-    expect(instance.staffSaid).toContain('i activate');
+    expect(instance.talkLog).toContain('i user');
+    expect(instance.talkLog).toContain('i share');
+    expect(instance.talkLog).toContain('i activate');
   });
 });
