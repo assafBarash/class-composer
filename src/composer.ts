@@ -10,13 +10,11 @@ class ComposedClassBase {
     mixins: { [key: string]: any };
   } = { mixins: {} };
 
-  protected superMixins(methodName: string, ...args: any[]) {
-    return Object.values(this._.mixins).map((mixin) =>
-      mixin[methodName]?.call(this, ...args)
-    );
-  }
-
-  protected superMixin(mixinName: string, methodName: string, ...args: any[]) {
+  protected superMixin(
+    mixinName: string,
+    methodName: keyof this,
+    ...args: any[]
+  ) {
     return this._.mixins[mixinName][methodName].call(this, ...args);
   }
 }
@@ -29,7 +27,7 @@ export function buildComposer(
   ): ComposedClass<T> &
     Constructor<
       ComposedClassBase,
-      ConstructorParameters<(typeof constructors)[0]>
+      ConstructorParameters<(typeof constructors)[0]>[0]
     > {
     class cls extends ComposedClassBase {
       constructor(...args: ComposedConstructorParams<T>) {
@@ -45,7 +43,7 @@ export function buildComposer(
     return cls as ComposedClass<T> &
       Constructor<
         ComposedClassBase,
-        ConstructorParameters<(typeof constructors)[0]>
+        ConstructorParameters<(typeof constructors)[0]>[0]
       >;
   };
 }

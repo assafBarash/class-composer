@@ -8,8 +8,8 @@ class User {
     this.name = name;
   }
 
-  talk() {
-    this.talkLog.push('i user');
+  talk(msg: string) {
+    return `User: ${msg}`;
   }
 }
 class Activateable {
@@ -24,19 +24,11 @@ class Activateable {
   deactivate() {
     this.activated = false;
   }
-
-  talk() {
-    this.talkLog.push('i activate');
-  }
 }
 class Shareable {
   talkLog!: string[];
   name!: string;
   private shared: boolean = false;
-
-  talk() {
-    this.talkLog.push('i share');
-  }
 
   share() {
     this.shared = true;
@@ -54,8 +46,7 @@ class Shareable {
 describe('compose', () => {
   it('should compose with function style', () => {
     const ComposedClass = compose(User, Shareable, Activateable);
-    const instance = new ComposedClass(['nana']);
-    const a = new ComposedClass();
+    const instance = new ComposedClass('some_name');
     instance.activate();
     instance.share();
 
@@ -67,20 +58,18 @@ describe('compose', () => {
   it('should handle invoke superMixins correctly', () => {
     class ComposedClass extends compose(User, Shareable, Activateable) {
       constructor(age: number, isSomething: boolean) {
-        super(['nana']);
+        super('some_name');
         console.log(age, isSomething);
       }
 
-      talk() {
-        this.superMixins('talk');
+      talk(msg: string) {
+        this.share();
+        return this.superMixin('User', 'talk', `Composed: ${msg}`);
       }
     }
 
     const instance = new ComposedClass(23, true);
 
-    instance.talk();
-    expect(instance.talkLog).toContain('i user');
-    expect(instance.talkLog).toContain('i share');
-    expect(instance.talkLog).toContain('i activate');
+    expect(instance.talk('lalala')).toContain('User: Composed: lalala');
   });
 });
