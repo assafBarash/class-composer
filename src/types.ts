@@ -1,4 +1,4 @@
-export type Constructor<T = {}> = new (...args: any[]) => T;
+export type Constructor<T = {}, Q = any> = new (...args: Q[]) => T;
 
 /* turns A | B | C into A & B & C */
 export type UnionToIntersection<U> = (

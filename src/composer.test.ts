@@ -54,8 +54,8 @@ class Shareable {
 describe('compose', () => {
   it('should compose with function style', () => {
     const ComposedClass = compose(User, Shareable, Activateable);
-    const instance = new ComposedClass('some_name');
-
+    const instance = new ComposedClass(['nana']);
+    const a = new ComposedClass();
     instance.activate();
     instance.share();
 
@@ -66,12 +66,17 @@ describe('compose', () => {
 
   it('should handle invoke superMixins correctly', () => {
     class ComposedClass extends compose(User, Shareable, Activateable) {
+      constructor(age: number, isSomething: boolean) {
+        super(['nana']);
+        console.log(age, isSomething);
+      }
+
       talk() {
         this.superMixins('talk');
       }
     }
 
-    const instance = new ComposedClass('some_name');
+    const instance = new ComposedClass(23, true);
 
     instance.talk();
     expect(instance.talkLog).toContain('i user');

@@ -26,7 +26,11 @@ export function buildComposer(
 ) {
   return function <T extends Mixins>(
     ...constructors: T
-  ): ComposedClass<T> & Constructor<ComposedClassBase> {
+  ): ComposedClass<T> &
+    Constructor<
+      ComposedClassBase,
+      ConstructorParameters<(typeof constructors)[0]>
+    > {
     class cls extends ComposedClassBase {
       constructor(...args: ComposedConstructorParams<T>) {
         super();
@@ -38,7 +42,11 @@ export function buildComposer(
       Object.assign(cls.prototype, c.prototype)
     );
 
-    return cls as any;
+    return cls as ComposedClass<T> &
+      Constructor<
+        ComposedClassBase,
+        ConstructorParameters<(typeof constructors)[0]>
+      >;
   };
 }
 
